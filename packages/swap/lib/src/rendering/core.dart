@@ -108,8 +108,8 @@ class RenderContainer extends ParentRenderObject<Container> {
         if (widget.height case final v?) 'height': ArgumentEncoders.v(v),
         if (widget.alignment case final v?)
           'alignment': ArgumentEncoders.alignment(v),
-        if (widget.color case final v?) 'color': ArgumentEncoders.color(v),
         if (child case final RenderObject v?) 'child': v.encode(),
+        if (widget.color case final v?) 'color': ArgumentEncoders.color(v),
       },
     );
   }

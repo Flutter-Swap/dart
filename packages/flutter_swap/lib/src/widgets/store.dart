@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_swap/src/logger.dart';
 import 'package:flutter_swap/src/model/slot_value.dart';
 
 import 'notifications/notification.dart';
@@ -108,6 +109,7 @@ class SwapStoreState extends State<SwapStore> {
         child: await future,
       );
     } catch (e, st) {
+      SwapLogger.instance.error(error: e, stackTrace: st);
       result = SlotValue.swapFailed(
         error: e,
         stackTrace: st,

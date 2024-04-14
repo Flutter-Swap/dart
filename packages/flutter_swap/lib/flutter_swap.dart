@@ -6,6 +6,7 @@ export 'src/client/request.dart';
 export 'src/client/response.dart';
 
 export 'src/extensions.dart';
+export 'src/logger.dart';
 export 'src/model/result.dart';
 export 'src/model/slot_value.dart';
 export 'src/widgets/configuration.dart';

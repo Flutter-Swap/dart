@@ -1,0 +1,5 @@
+dependency_overrides:
+  swap:
+    path: ../../packages/swap
+  shelf_swap:
+    path: ../../packages/shelf_swap

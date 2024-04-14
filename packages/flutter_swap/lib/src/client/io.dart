@@ -42,6 +42,9 @@ class IOHttpSwapClient extends SwapClient {
     }
 
     return switch (response.headers.contentType?.mimeType) {
+      'text/plain' => SwapClientResponse.rfwtxt(
+          utf8.decode(respBody),
+        ),
       'application/rfw' => SwapClientResponse.rfw(
           Uint8List.fromList(respBody),
         ),

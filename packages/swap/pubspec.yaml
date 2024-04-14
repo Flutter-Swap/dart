@@ -1,10 +1,10 @@
 name: swap
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: Server side rendering for Flutter core models.
+version: 0.0.1-dev
+homepage: https://github.com/Flutter-Swap/dart
 
 environment:
-  sdk: ^3.2.3
+  sdk: ^3.3.0
 
 dependencies:
   meta: ^1.10.0
