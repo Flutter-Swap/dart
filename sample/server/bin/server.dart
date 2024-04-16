@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:swap_server_sample/src/app.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
+import 'package:swap_server_sample/server.dart';
 
 void main() async {
   var server = await shelf_io.serve(

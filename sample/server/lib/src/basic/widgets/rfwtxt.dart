@@ -1,4 +1,14 @@
-const rfwtxt = '''
+import 'package:shelf/shelf.dart';
+
+class RfwTxt {
+  const RfwTxt({
+    required this.name,
+  });
+
+  final String name;
+
+  String build() {
+    return '''
     import core.widgets;
     widget root = Container(
       padding: [72],
@@ -16,7 +26,7 @@ const rfwtxt = '''
       child: Column(
         children: [
           Text(
-            text: ["Hello, ", data.greet.name, "!"],
+            text: "Hello, $name!",
             style: TextStyle(
               fontSize: 100,
               letterSpacing: 2.0,
@@ -25,5 +35,20 @@ const rfwtxt = '''
           ),
         ],
       ),
-    );
-''';
+    );''';
+  }
+
+  static Handler handler(Request request) {
+    return (request) {
+      final name = request.url.queryParameters['name'] ?? 'World';
+      return Response.ok(
+        RfwTxt(
+          name: name,
+        ).build(),
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      );
+    };
+  }
+}
