@@ -1,4 +1,17 @@
+import 'package:shelf/shelf.dart';
 import 'package:shelf_swap/shelf_swap.dart';
+
+class HelloServerApp {
+  Handler build() {
+    return const Pipeline().addMiddleware(logRequests()).addHandler(
+      widget(
+        (context) async {
+          return const HelloWorld();
+        },
+      ),
+    );
+  }
+}
 
 class HelloWorld extends StatelessWidget {
   const HelloWorld({

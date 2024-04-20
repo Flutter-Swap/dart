@@ -7,6 +7,19 @@ class UserDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xFFFEFEFE),
+      ),
+      child: Center(
+        child: Text(
+          'No access',
+          style: TextStyle(
+            fontSize: 24,
+            color: Color(0xFF000000),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -32,7 +32,6 @@ class DashboardServerApp {
       sessions: FakeSessionTable(),
     );
 
-    /// This example demonstrates how to use htmx when HTML content is requested.
     app.get(
       '/dashboard',
       View(

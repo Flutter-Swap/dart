@@ -1,15 +1,17 @@
 import 'package:shelf/shelf.dart';
 
-class RfwTxt {
-  const RfwTxt({
-    required this.name,
-  });
-
-  final String name;
-
-  String build() {
-    return '''
-    import core.widgets;
+class RfwtxtServerApp {
+  Handler build() {
+    return const Pipeline()
+        .addMiddleware(
+      logRequests(),
+    )
+        .addHandler(
+      (request) {
+        final name = request.url.queryParameters['name'] ?? 'World';
+        return Response.ok(
+          ''''
+    port core.widgets;
     widget root = Container(
       padding: [72],
       decoration: BoxDecoration(
@@ -35,20 +37,12 @@ class RfwTxt {
           ),
         ],
       ),
-    );''';
-  }
-
-  static Handler handler(Request request) {
-    return (request) {
-      final name = request.url.queryParameters['name'] ?? 'World';
-      return Response.ok(
-        RfwTxt(
-          name: name,
-        ).build(),
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      );
-    };
+    );''',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+        );
+      },
+    );
   }
 }

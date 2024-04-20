@@ -34,52 +34,91 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SwapScope(
-        child: Builder(builder: (context) {
-          return Container(
-            color: Colors.blue.shade100,
-            child: Column(
-              children: [
-                const Text('Choose an example'),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: SingleChildScrollView(
-                      clipBehavior: Clip.none,
-                      child: Slot(
-                        identifier: 'slot1',
-                        notSwappedBuilder: (context) => const Text('Slot 1'),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // This will update the slot1 with the HelloWorld widget from
-                    // the server.
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Swap samples'),
+      ),
+      body: ListView(
+        children: const [
+          SampleTile(
+            name: 'hello',
+            initialUrl: '/hello',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SampleTile extends StatelessWidget {
+  const SampleTile({
+    super.key,
+    required this.name,
+    required this.initialUrl,
+  });
+
+  final String name;
+  final String initialUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(name),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return Sample(
+                name: name,
+                initialUrl: initialUrl,
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class Sample extends StatelessWidget {
+  const Sample({
+    super.key,
+    required this.name,
+    required this.initialUrl,
+  });
+
+  final String name;
+  final String initialUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return SwapScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(name),
+          actions: [
+            Builder(
+              builder: (context) {
+                return IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
                     context.swap.get(
-                      'slot1',
-                      '/rfwtxt?name=World',
+                      'slot',
+                      initialUrl,
                     );
                   },
-                  child: const Text('Load /rfwtxt'),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // This will update the slot1 with the HelloWorld widget from
-                    // the server.
-                    context.swap.get(
-                      'slot1',
-                      '/hello',
-                    );
-                  },
-                  child: const Text('Load /hello'),
-                ),
-              ],
+                );
+              },
             ),
-          );
-        }),
+          ],
+        ),
+        body: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Slot(
+            identifier: 'slot',
+            notSwappedBuilder: (context) => const Text('Slot 1'),
+          ),
+        ),
       ),
     );
   }
