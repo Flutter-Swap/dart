@@ -1,7 +1,7 @@
 import 'package:shelf_swap/shelf_swap.dart';
 
-class AdminDashboard extends StatelessWidget {
-  const AdminDashboard({
+class GuestDashboard extends StatelessWidget {
+  const GuestDashboard({
     super.key,
   });
 

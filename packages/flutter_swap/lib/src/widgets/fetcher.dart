@@ -15,6 +15,11 @@ class SwapFetcher extends StatelessWidget {
   final Widget child;
 
   /// Fetches the widget at the given [path] and swaps the slot with the given
+  /// [id] with the fetched widget.
+  ///
+  /// The [method] is the HTTP method to use for the request.
+  ///
+  /// A [body] can be sent with the request.
   static Future<void> fetch(
     BuildContext context,
     String id,

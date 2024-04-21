@@ -5,7 +5,7 @@ import 'package:flutter_swap/src/widgets/configuration.dart';
 import 'request.dart';
 import 'response.dart';
 
-///
+/// A client that can fetch Swap data from a server.
 abstract class SwapClient {
   const SwapClient();
 

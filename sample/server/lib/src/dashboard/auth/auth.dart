@@ -1,20 +1,18 @@
 import 'dart:convert';
 
 import 'package:shelf/shelf.dart';
-import 'package:swap_server_sample/src/dashboard/database/datatable.dart';
+
+final users = {
+  'admin': 'adm1n!',
+  'user': 'us3r?',
+};
 
 /// An authentication middleware which associates a users to the request when
 /// a basic authentication header is present.
 ///
-/// The [users] map is used to authenticate the user. The entry key is the
-/// username.
-///
-/// The [key] is used to encrypt the request password.
-Middleware auth({
-  required String key,
-  required DatabaseTables database,
-}) =>
-    (innerHandler) {
+/// The user credentials are checked against the [database] and if they are
+/// valid the user is associated with the request.
+Middleware auth() => (innerHandler) {
       return (Request request) {
         final header = request.headers['authorization'];
         if (header == null) {
@@ -34,15 +32,15 @@ Middleware auth({
 
         final username = auth.substring(0, index);
         final password = auth.substring(index + 1);
-        final user = database.users.get(username);
-        if (user == null || user.password != password) {
+        final effectivePassword = users[username];
+        if (effectivePassword == null || effectivePassword != password) {
           return Response.unauthorized('Unmauthorized');
         }
 
         return innerHandler(
           request.change(
             context: {
-              'user': user,
+              'user': username,
             },
           ),
         );
