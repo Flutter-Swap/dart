@@ -2,7 +2,9 @@
 
 Server-driven UI for Flutter.
 
-This package provides a way to express [rfw]() widgets just as if it was written in Dart for Flutter.
+This package provides a way to express [rfw](https://pub.dev/packages/rfw) widgets just as if it was written in Dart for Flutter.
+
+It also adds many useful widgets to bring reactiveness to distant widgets.
 
 > Swap is still an experimental project. 
 >
@@ -11,7 +13,7 @@ This package provides a way to express [rfw]() widgets just as if it was written
 # Example
 
 ```dart
-import 'package:shelf_swap/shelf_swap.dart';
+import 'package:swap/swap.dart';
 
 void main() {
     final encodedWidget = encodeWidget(const HelloWorld());
@@ -31,39 +33,39 @@ class HelloWorld extends StatelessWidget {
             color: Color(0xFFEEEEEE),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
-            BoxShadow(
-                color: Color(0x44000000),
-                blurRadius: 56,
-                offset: Offset(0, 8),
-            ),
+                BoxShadow(
+                    color: Color(0x44000000),
+                    blurRadius: 56,
+                    offset: Offset(0, 8),
+                ),
             ],
         ),
         child: Column(
             children: [
-            Text(
-                'Hello',
-                style: TextStyle(
-                fontSize: 100,
-                letterSpacing: 2.0,
-                color: Color(0xFF000000),
-                fontWeight: FontWeight.w100,
+                Text(
+                    'Hello',
+                    style: TextStyle(
+                    fontSize: 100,
+                    letterSpacing: 2.0,
+                    color: Color(0xFF000000),
+                    fontWeight: FontWeight.w100,
+                    ),
                 ),
-            ),
-            Text(
-                'World',
-                style: TextStyle(
-                fontSize: 78,
-                letterSpacing: 4.0,
-                color: Color(0xFF000000),
-                fontWeight: FontWeight.w600,
+                Text(
+                    'World',
+                    style: TextStyle(
+                        fontSize: 78,
+                        letterSpacing: 4.0,
+                        color: Color(0xFF000000),
+                        fontWeight: FontWeight.w600,
+                    ),
                 ),
-            ),
-            Swap(
-                path: '/user/John',
-                trigger: SwapTrigger.init(),
-                loading: Text('...'),
-                child: Text('Oops'),
-            ),
+                Swap(
+                    path: '/user/John',
+                    trigger: SwapTrigger.init(),
+                    loading: Text('...'),
+                    child: Text('Oops'),
+                ),
             ],
         ),
     );

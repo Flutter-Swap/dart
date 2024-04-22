@@ -59,6 +59,21 @@ class RenderFlex extends MultiParentRenderObject<Flex> {
     return ConstructorCall(
       widget.direction == Axis.vertical ? 'Column' : 'Row',
       {
+        if (widget.mainAxisAlignment != MainAxisAlignment.start)
+          'mainAxisAlignment':
+              ArgumentEncoders.enumValue(widget.mainAxisAlignment),
+        if (widget.mainAxisSize != MainAxisSize.max)
+          'mainAxisSize': ArgumentEncoders.enumValue(widget.mainAxisSize),
+        if (widget.crossAxisAlignment != CrossAxisAlignment.center)
+          'crossAxisAlignment':
+              ArgumentEncoders.enumValue(widget.crossAxisAlignment),
+        if (widget.textDirection != null)
+          'textDirection': ArgumentEncoders.enumValue(widget.textDirection!),
+        if (widget.verticalDirection != VerticalDirection.down)
+          'verticalDirection':
+              ArgumentEncoders.enumValue(widget.verticalDirection),
+        if (widget.textBaseline != null)
+          'textBaseline': ArgumentEncoders.enumValue(widget.textBaseline!),
         'children': [
           for (final child in children) child.encode(),
         ],
@@ -125,6 +140,15 @@ class RenderDefaultTextStyle extends ParentRenderObject<DefaultTextStyle> {
     return ConstructorCall(
       'DefaultTextStyle',
       {
+        'style': ArgumentEncoders.textStyle(widget.style),
+        'softWrap': widget.softWrap,
+        'overflow': ArgumentEncoders.enumValue(widget.overflow),
+        'textWidthBasis': ArgumentEncoders.enumValue(widget.textWidthBasis),
+        if (widget.textAlign case final v?)
+          'textAlign': ArgumentEncoders.enumValue(v),
+        if (widget.textHeightBehavior case final v?)
+          'textHeightBehavior': ArgumentEncoders.textHeightBehavior(v),
+        if (widget.maxLines case final v?) 'maxLines': v,
         // TODO
       },
     );
@@ -175,7 +199,12 @@ class RenderFittedBox extends ParentRenderObject<FittedBox> {
     return ConstructorCall(
       'FittedBox',
       {
-        // TODO
+        if (widget.fit != BoxFit.contain)
+          'fit': ArgumentEncoders.enumValue(widget.fit),
+        if (widget.alignment != Alignment.center)
+          'alignment': ArgumentEncoders.alignment(widget.alignment),
+        if (widget.clipBehavior != Clip.hardEdge)
+          'clipBehavior': ArgumentEncoders.enumValue(widget.clipBehavior),
         if (child case final RenderObject v?) 'child': v.encode(),
       },
     );
@@ -193,7 +222,12 @@ class RenderFractionallySizedBox
     return ConstructorCall(
       'FractionallySizedBox',
       {
-        // TODO
+        if (widget.widthFactor != null)
+          'widthFactor': ArgumentEncoders.v(widget.widthFactor!),
+        if (widget.heightFactor != null)
+          'heightFactor': ArgumentEncoders.v(widget.heightFactor!),
+        if (widget.alignment != Alignment.center)
+          'alignment': ArgumentEncoders.alignment(widget.alignment),
         if (child case final RenderObject v?) 'child': v.encode(),
       },
     );
@@ -210,7 +244,169 @@ class RenderIcon extends RenderObject<Icon> {
     return ConstructorCall(
       'Icon',
       {
-        // TODO
+        if (widget.icon != null)
+          'icon': ArgumentEncoders.iconData(widget.icon!),
+        if (widget.size != 24.0) 'size': widget.size,
+        if (widget.color != null)
+          'color': ArgumentEncoders.color(widget.color!),
+        if (widget.semanticLabel != null) 'semanticLabel': widget.semanticLabel,
+        if (widget.textDirection != null)
+          'textDirection': ArgumentEncoders.enumValue(widget.textDirection!),
+      },
+    );
+  }
+}
+
+class RenderImage extends RenderObject<Image> {
+  RenderImage({
+    required super.widget,
+  });
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'Image',
+      {
+        'image': ArgumentEncoders.imageProvider(widget.image),
+        if (widget.width != null) 'width': ArgumentEncoders.v(widget.width!),
+        if (widget.height != null) 'height': ArgumentEncoders.v(widget.height!),
+        if (widget.color != null)
+          'color': ArgumentEncoders.color(widget.color!),
+        if (widget.colorBlendMode != null)
+          'colorBlendMode': ArgumentEncoders.enumValue(widget.colorBlendMode!),
+        if (widget.fit != null) 'fit': ArgumentEncoders.enumValue(widget.fit!),
+        if (widget.alignment != Alignment.center)
+          'alignment': ArgumentEncoders.alignment(widget.alignment),
+        if (widget.repeat != ImageRepeat.noRepeat)
+          'repeat': ArgumentEncoders.enumValue(widget.repeat),
+        if (widget.centerSlice != null)
+          'centerSlice': ArgumentEncoders.rect(widget.centerSlice!),
+        if (widget.matchTextDirection != false)
+          'matchTextDirection': widget.matchTextDirection,
+        if (widget.gaplessPlayback != false)
+          'gaplessPlayback': widget.gaplessPlayback,
+        if (widget.isAntiAlias != false) 'isAntiAlias': widget.isAntiAlias,
+        if (widget.filterQuality != FilterQuality.low)
+          'filterQuality': ArgumentEncoders.enumValue(widget.filterQuality),
+      },
+    );
+  }
+}
+
+class RenderOpacity extends ParentRenderObject<Opacity> {
+  RenderOpacity({
+    required super.widget,
+  }) : super(child: widget.child);
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'Opacity',
+      {
+        'opacity': widget.opacity,
+        if (child case final RenderObject v?) 'child': v.encode(),
+      },
+    );
+  }
+}
+
+class RenderPadding extends ParentRenderObject<Padding> {
+  RenderPadding({
+    required super.widget,
+  }) : super(child: widget.child);
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'Padding',
+      {
+        if (widget.padding != EdgeInsets.zero)
+          'padding': ArgumentEncoders.edgeInsets(widget.padding),
+        if (child case final RenderObject v?) 'child': v.encode(),
+      },
+    );
+  }
+}
+
+class RenderSingleChildScrollView
+    extends ParentRenderObject<SingleChildScrollView> {
+  RenderSingleChildScrollView({
+    required super.widget,
+  }) : super(child: widget.child);
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'SingleChildScrollView',
+      {
+        if (widget.scrollDirection != Axis.vertical)
+          'scrollDirection': ArgumentEncoders.enumValue(widget.scrollDirection),
+        if (widget.reverse != false) 'reverse': widget.reverse,
+        if (widget.padding case final v?)
+          'padding': ArgumentEncoders.edgeInsets(v),
+        if (widget.primary != true) 'primary': widget.primary,
+        if (widget.restorationId != null) 'restorationId': widget.restorationId,
+        if (child case final RenderObject v?) 'child': v.encode(),
+      },
+    );
+  }
+}
+
+class RenderSizedBox extends ParentRenderObject<SizedBox> {
+  RenderSizedBox({
+    required super.widget,
+  }) : super(child: widget.child);
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'SizedBox',
+      {
+        'width': ArgumentEncoders.v(widget.width),
+        'height': ArgumentEncoders.v(widget.height),
+        if (child case final RenderObject v?) 'child': v.encode(),
+      },
+    );
+  }
+}
+
+class RenderSpacer extends RenderObject<Spacer> {
+  RenderSpacer({
+    required super.widget,
+  });
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'Spacer',
+      {
+        if (widget.flex != 1) 'flex': widget.flex,
+      },
+    );
+  }
+}
+
+class RenderStack extends MultiParentRenderObject<Stack> {
+  RenderStack({
+    required super.widget,
+  }) : super(children: widget.children);
+
+  @override
+  BlobNode encode() {
+    return ConstructorCall(
+      'Stack',
+      {
+        if (widget.alignment != AlignmentDirectional.topStart)
+          'alignment': ArgumentEncoders.alignment(widget.alignment),
+        if (widget.textDirection != null)
+          'textDirection': ArgumentEncoders.enumValue(widget.textDirection!),
+        if (widget.fit != StackFit.loose)
+          'fit': ArgumentEncoders.enumValue(widget.fit),
+        if (widget.clipBehavior != Clip.hardEdge)
+          'clipBehavior': ArgumentEncoders.enumValue(widget.clipBehavior),
+        'children': [
+          for (final child in children) child.encode(),
+        ],
       },
     );
   }
@@ -230,127 +426,14 @@ class RenderText extends RenderObject<Text> {
         if (widget.textDirection case final v?)
           'textDirection': ArgumentEncoders.enumValue(v),
         if (widget.style case final v?) 'style': ArgumentEncoders.textStyle(v),
-        // TODO
-      },
-    );
-  }
-}
-
-class RenderImage extends RenderObject<Image> {
-  RenderImage({
-    required super.widget,
-  });
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'Image',
-      {
-        // TODO
-      },
-    );
-  }
-}
-
-class RenderOpacity extends ParentRenderObject<Opacity> {
-  RenderOpacity({
-    required super.widget,
-  }) : super(child: widget.child);
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'Opacity',
-      {
-        // TODO
-        if (child case final RenderObject v?) 'child': v.encode(),
-      },
-    );
-  }
-}
-
-class RenderPadding extends ParentRenderObject<Padding> {
-  RenderPadding({
-    required super.widget,
-  }) : super(child: widget.child);
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'Padding',
-      {
-        // TODO
-        if (child case final RenderObject v?) 'child': v.encode(),
-      },
-    );
-  }
-}
-
-class RenderSingleChildScrollView
-    extends ParentRenderObject<SingleChildScrollView> {
-  RenderSingleChildScrollView({
-    required super.widget,
-  }) : super(child: widget.child);
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'SingleChildScrollView',
-      {
-        // TODO
-        if (child case final RenderObject v?) 'child': v.encode(),
-      },
-    );
-  }
-}
-
-class RenderSizedBox extends ParentRenderObject<SizedBox> {
-  RenderSizedBox({
-    required super.widget,
-  }) : super(child: widget.child);
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'SizedBox',
-      {
-        // TODO
-        if (child case final RenderObject v?) 'child': v.encode(),
-      },
-    );
-  }
-}
-
-class RenderSpacer extends RenderObject<Spacer> {
-  RenderSpacer({
-    required super.widget,
-  });
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'Spacer',
-      {
-        // TODO
-      },
-    );
-  }
-}
-
-class RenderStack extends MultiParentRenderObject<Stack> {
-  RenderStack({
-    required super.widget,
-  }) : super(children: widget.children);
-
-  @override
-  BlobNode encode() {
-    return ConstructorCall(
-      'Stack',
-      {
-        // TODO
-        'children': [
-          for (final child in children) child.encode(),
-        ],
+        'softWrap': widget.softWrap,
+        'overflow': ArgumentEncoders.enumValue(widget.overflow),
+        'textWidthBasis': ArgumentEncoders.enumValue(widget.textWidthBasis),
+        if (widget.textAlign case final v?)
+          'textAlign': ArgumentEncoders.enumValue(v),
+        if (widget.textHeightBehavior case final v?)
+          'textHeightBehavior': ArgumentEncoders.textHeightBehavior(v),
+        if (widget.maxLines case final v?) 'maxLines': v,
       },
     );
   }
@@ -366,7 +449,24 @@ class RenderWrap extends MultiParentRenderObject<Wrap> {
     return ConstructorCall(
       'Wrap',
       {
-        // TODO
+        if (widget.direction != Axis.horizontal)
+          'direction': ArgumentEncoders.enumValue(widget.direction),
+        if (widget.alignment != WrapAlignment.start)
+          'alignment': ArgumentEncoders.enumValue(widget.alignment),
+        if (widget.spacing != 0.0) 'spacing': widget.spacing,
+        if (widget.runAlignment != WrapAlignment.start)
+          'runAlignment': ArgumentEncoders.enumValue(widget.runAlignment),
+        if (widget.runSpacing != 0.0) 'runSpacing': widget.runSpacing,
+        if (widget.crossAxisAlignment != WrapCrossAlignment.start)
+          'crossAxisAlignment':
+              ArgumentEncoders.enumValue(widget.crossAxisAlignment),
+        if (widget.textDirection != null)
+          'textDirection': ArgumentEncoders.enumValue(widget.textDirection!),
+        if (widget.verticalDirection != VerticalDirection.down)
+          'verticalDirection':
+              ArgumentEncoders.enumValue(widget.verticalDirection),
+        if (widget.clipBehavior != Clip.none)
+          'clipBehavior': ArgumentEncoders.enumValue(widget.clipBehavior),
         'children': [
           for (final child in children) child.encode(),
         ],

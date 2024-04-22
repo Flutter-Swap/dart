@@ -1,6 +1,6 @@
 import 'package:shelf_swap/shelf_swap.dart';
 import 'package:swap_server_sample/src/dashboard/auth/extensions.dart';
-import 'package:swap_server_sample/src/dashboard/views/widgets/user.dart';
+import 'package:swap_server_sample/src/dashboard/widgets/user.dart';
 
 import 'guest.dart';
 

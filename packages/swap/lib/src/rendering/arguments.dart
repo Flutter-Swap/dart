@@ -236,6 +236,15 @@ class ArgumentEncoders {
     };
   }
 
+  static dynamic rect(Rect value) {
+    return {
+      'x': value.left,
+      'y': value.top,
+      'w': value.width,
+      'h': value.height,
+    };
+  }
+
   static dynamic gradient(Gradient value) {
     if (value is LinearGradient) {
       return {
@@ -287,6 +296,46 @@ class ArgumentEncoders {
       if (value.maxWidth != double.infinity) 'maxWidth': v(value.maxWidth),
       if (value.minHeight != 0) 'minHeight': v(value.minHeight),
       if (value.maxHeight != double.infinity) 'maxHeight': v(value.maxHeight),
+    };
+  }
+
+  static dynamic textHeightBehavior(TextHeightBehavior value) {
+    return {
+      if (value.applyHeightToFirstAscent case false)
+        'applyHeightToFirstAscent': false,
+      if (value.applyHeightToLastDescent case false)
+        'applyHeightToLastDescent': false,
+      if (value.leadingDistribution != TextLeadingDistribution.proportional)
+        'leadingDistribution': enumValue(value.leadingDistribution),
+    };
+  }
+
+  static dynamic imageProvider(ImageProvider value) {
+    if (value is AssetImage) {
+      return {
+        'source': value.name,
+        if (value.package case final o?) 'package': o,
+      };
+    }
+
+    if (value is NetworkImage) {
+      return {
+        'source': value.src,
+        if (value.scale != 1.0) 'scale': value.scale,
+        if (value.headers case final o?) 'headers': o,
+      };
+    }
+
+    return null;
+  }
+
+  static dynamic iconData(IconData value) {
+    return {
+      'icon': value.codePoint,
+      if (value.fontFamily != 'MaterialIcons') 'fontFamily': value.fontFamily,
+      if (value.fontPackage != null) 'fontPackage': value.fontPackage,
+      if (value.matchTextDirection)
+        'matchTextDirection': value.matchTextDirection,
     };
   }
 

@@ -3,7 +3,7 @@ import 'package:swap_server_sample/src/dashboard/auth/auth.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import 'views/widgets/dashboard.dart';
+import 'widgets/dashboard.dart';
 
 class DashboardServerApp {
   Handler build() {
