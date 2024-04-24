@@ -1,6 +1,6 @@
 name: swap
 description: Server side rendering for Flutter core models.
-version: 0.0.1-dev
+version: 0.0.2-dev.3
 homepage: https://github.com/Flutter-Swap/dart
 
 environment:

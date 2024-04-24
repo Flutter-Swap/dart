@@ -1,18 +1,21 @@
-import 'package:shelf/shelf.dart';
+// ignore_for_file: depend_on_referenced_packages
 
-class RfwtxtServerApp {
-  Handler build() {
-    return const Pipeline()
-        .addMiddleware(
-      logRequests(),
-    )
-        .addHandler(
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
+import 'package:swap/rfw.dart';
+
+class RfwtxtController {
+  Router get router {
+    final result = Router();
+
+    result.get(
+      '/',
       (request) {
         final name = request.url.queryParameters['name'] ?? 'World';
-        return Response.ok(
-          ''''
-    port core.widgets;
+        final text = '''
+    import core.widgets;
     widget root = Container(
+      margin: [72],
       padding: [72],
       decoration: BoxDecoration(
         color: 0xFFEEEEEE,
@@ -26,6 +29,8 @@ class RfwtxtServerApp {
         ],
       ),
       child: Column(
+        mainAxisAlignment: "center",
+        crossAxisAlignment: "center",
         children: [
           Text(
             text: "Hello, $name!",
@@ -37,12 +42,19 @@ class RfwtxtServerApp {
           ),
         ],
       ),
-    );''',
+    );''';
+
+        final library = parseLibraryFile(text);
+        final bytes = encodeLibraryBlob(library);
+        return Response.ok(
+          bytes,
           headers: {
-            'Content-Type': 'text/plain',
+            'Content-Type': 'application/rfw',
           },
         );
       },
     );
+
+    return result;
   }
 }

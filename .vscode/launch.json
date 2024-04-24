@@ -26,6 +26,6 @@
             "cwd": "sample/server",
             "request": "launch",
             "type": "dart"
-        }
+        },
     ]
 }

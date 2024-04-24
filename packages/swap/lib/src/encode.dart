@@ -9,8 +9,11 @@ FutureOr<Uint8List> encodeWidget(Widget root) async {
   final context = root.createRenderObject();
   final rootNode = await context.encode();
 
+  print(rootNode);
+
   final library = RemoteWidgetLibrary([], [
     WidgetDeclaration('root', null, rootNode),
   ]);
+
   return encodeLibraryBlob(library);
 }

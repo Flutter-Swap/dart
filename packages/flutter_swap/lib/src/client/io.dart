@@ -36,6 +36,14 @@ class IOHttpSwapClient extends SwapClient {
     }
 
     final response = await urlRequest.close();
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to fetch data: ${response.statusCode}'
+        ' ${response.reasonPhrase}',
+      );
+    }
+
     final respBody = <int>[];
     await for (var data in response) {
       respBody.addAll(data);

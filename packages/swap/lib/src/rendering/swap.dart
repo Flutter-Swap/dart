@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:swap/src/rendering/arguments.dart';
 import 'package:swap/src/rendering/base.dart';
 import 'package:swap/src/rfw/rfw.dart';
@@ -13,7 +15,7 @@ class RenderSwap extends ParentRenderObject<Swap> {
   late final RenderObject? loading;
 
   @override
-  BlobNode encode() {
+  FutureOr<BlobNode> encode() async {
     return ConstructorCall(
       'Swap',
       {
@@ -24,8 +26,8 @@ class RenderSwap extends ParentRenderObject<Swap> {
           TapSwapTrigger() => {'type': 'tap'},
         },
         if (widget.target case final v?) 'target': v,
-        if (child case final RenderObject v?) 'child': v.encode(),
-        if (loading case final RenderObject v?) 'loading': v.encode(),
+        if (child case final RenderObject v?) 'child': await v.encode(),
+        if (loading case final RenderObject v?) 'loading': await v.encode(),
       },
     );
   }
@@ -37,11 +39,11 @@ class RenderSwapScope extends ParentRenderObject<SwapScope> {
   }) : super(child: widget.child);
 
   @override
-  BlobNode encode() {
+  FutureOr<BlobNode> encode() async {
     return ConstructorCall(
       'SwapScope',
       {
-        if (child case final RenderObject v?) 'child': v.encode(),
+        if (child case final RenderObject v?) 'child': await v.encode(),
       },
     );
   }
@@ -53,12 +55,12 @@ class RenderSlot extends ParentRenderObject<Slot> {
   }) : super(child: widget.child);
 
   @override
-  BlobNode encode() {
+  FutureOr<BlobNode> encode() async {
     return ConstructorCall(
       'Slot',
       {
         'identifier': widget.identifier,
-        if (child case final RenderObject v?) 'child': v.encode(),
+        if (child case final RenderObject v?) 'child': await v.encode(),
       },
     );
   }
@@ -70,12 +72,12 @@ class RenderSwapInit extends ParentRenderObject<SwapInit> {
   }) : super(child: widget.child);
 
   @override
-  BlobNode encode() {
+  FutureOr<BlobNode> encode() async {
     return ConstructorCall(
       'SwapInit',
       {
         'notification': ArgumentEncoders.swapNotification(widget.notification),
-        if (child case final RenderObject v?) 'child': v.encode(),
+        if (child case final RenderObject v?) 'child': await v.encode(),
       },
     );
   }
@@ -87,12 +89,12 @@ class RenderSwapLink extends ParentRenderObject<SwapLink> {
   }) : super(child: widget.child);
 
   @override
-  BlobNode encode() {
+  FutureOr<BlobNode> encode() async {
     return ConstructorCall(
       'SwapLink',
       {
         'notification': ArgumentEncoders.swapNotification(widget.notification),
-        if (child case final RenderObject v?) 'child': v.encode(),
+        if (child case final RenderObject v?) 'child': await v.encode(),
       },
     );
   }

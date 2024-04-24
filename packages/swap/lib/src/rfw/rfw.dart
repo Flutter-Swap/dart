@@ -5,3 +5,4 @@ library rfw;
 /// This was required because the rfw package depends on Flutter SDK.
 export 'binary.dart';
 export 'model.dart';
+export 'text.dart';

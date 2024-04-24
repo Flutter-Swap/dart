@@ -1,3 +1,4 @@
+import 'package:client/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swap/flutter_swap.dart';
 
@@ -19,9 +20,11 @@ class App extends StatelessWidget {
       client: IOHttpSwapClient(
         baseUrl: config.baseUrl,
       ),
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Server Driven UI Demo',
-        home: Home(),
+        home: Home(
+          config: config,
+        ),
       ),
     );
   }
@@ -30,7 +33,9 @@ class App extends StatelessWidget {
 class Home extends StatelessWidget {
   const Home({
     super.key,
+    required this.config,
   });
+  final Config config;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +44,10 @@ class Home extends StatelessWidget {
         title: const Text('Swap samples'),
       ),
       body: ListView(
-        children: const [
+        children: [
           SampleTile(
-            name: 'hello',
-            initialUrl: '/hello',
+            name: 'Pagination',
+            initialUrl: '${config.baseUrl}/pagination?page=1',
           ),
         ],
       ),
@@ -112,12 +117,9 @@ class Sample extends StatelessWidget {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          clipBehavior: Clip.none,
-          child: Slot(
-            identifier: 'slot',
-            notSwappedBuilder: (context) => const Text('Slot 1'),
-          ),
+        body: Slot(
+          identifier: 'slot',
+          notSwappedBuilder: (context) => const Text('Slot 1'),
         ),
       ),
     );

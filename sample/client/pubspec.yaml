@@ -37,6 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   fl_chart: ^0.67.0
+  http: ^1.2.1
 
 dependency_overrides:
   flutter_swap:

@@ -11,14 +11,11 @@ class ArgumentEncoders {
   // ignore: unused_field
   static const ArgumentEncoders __ = ArgumentEncoders._();
 
-  static dynamic v<T>(T? value) {
-    if (value == null) {
-      return null;
-    }
+  static dynamic v<T>(T value) {
     if (value is String) return value;
     if (value is double) return value;
     if (value is int) return value;
-    throw Exception('Unsupported type: ${value.runtimeType}');
+    throw Exception('Unsupported type: ${value?.runtimeType}');
   }
 
   static dynamic color(Color value) {
