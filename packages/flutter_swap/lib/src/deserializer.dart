@@ -72,6 +72,16 @@ LocalWidgetLibrary createSwapWidgets() =>
 // In these widgets we make an effort to expose every single argument available.
 Map<String, LocalWidgetBuilder> get _swapWidgetsDefinitions =>
     <String, LocalWidgetBuilder>{
+      'SafeArea': (BuildContext context, DataSource source) {
+        return SafeArea(
+          top: source.v<bool>(['top']) ?? true,
+          bottom: source.v<bool>(['bottom']) ?? true,
+          right: source.v<bool>(['right']) ?? true,
+          left: source.v<bool>(['left']) ?? true,
+          child: source.child(['child']),
+        );
+      },
+
       // Keep these in alphabetical order and add any new widgets to the list
       // in the documentation above.
 

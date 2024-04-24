@@ -6,6 +6,29 @@ import 'package:vector_math/vector_math_64.dart';
 
 import 'base.dart';
 
+class SafeArea extends Widget {
+  const SafeArea({
+    this.top = true,
+    this.bottom = true,
+    this.left = true,
+    this.right = true,
+    required this.child,
+  });
+
+  final bool top;
+  final bool bottom;
+  final bool left;
+  final bool right;
+  final Widget? child;
+
+  @override
+  RenderObject<SafeArea> createRenderObject() {
+    return RenderSafeArea(
+      widget: this,
+    );
+  }
+}
+
 /// A widget that aligns its child within itself and optionally sizes itself
 /// based on the child's size.
 ///

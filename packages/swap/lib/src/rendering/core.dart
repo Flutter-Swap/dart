@@ -7,6 +7,26 @@ import 'package:swap/src/widgets/widgets.dart';
 import 'arguments.dart';
 import 'base.dart';
 
+class RenderSafeArea extends ParentRenderObject<SafeArea> {
+  RenderSafeArea({
+    required super.widget,
+  }) : super(child: widget.child);
+
+  @override
+  FutureOr<BlobNode> encode() async {
+    return ConstructorCall(
+      'SafeArea',
+      {
+        if (widget.top != true) 'top': ArgumentEncoders.v(widget.top),
+        if (widget.bottom != true) 'bottom': ArgumentEncoders.v(widget.bottom),
+        if (widget.right != true) 'right': ArgumentEncoders.v(widget.right),
+        if (widget.left != true) 'top': ArgumentEncoders.v(widget.left),
+        if (child case final RenderObject v?) 'child': await v.encode(),
+      },
+    );
+  }
+}
+
 class RenderAlign extends ParentRenderObject<Align> {
   RenderAlign({
     required super.widget,
@@ -182,7 +202,7 @@ class RenderFlexible extends ParentRenderObject<Flexible> {
   @override
   FutureOr<BlobNode> encode() async {
     return ConstructorCall(
-      'Flexible',
+      'Expanded',
       {
         if (widget.flex != 1) 'flex': ArgumentEncoders.v(widget.flex),
         if (child case final RenderObject v?) 'child': await v.encode(),
@@ -270,7 +290,8 @@ class RenderImage extends RenderObject<Image> {
     return ConstructorCall(
       'Image',
       {
-        'image': ArgumentEncoders.imageProvider(widget.image),
+        if (ArgumentEncoders.imageProvider(widget.image) case final v?)
+          'image': v,
         if (widget.width != null) 'width': ArgumentEncoders.v(widget.width!),
         if (widget.height != null) 'height': ArgumentEncoders.v(widget.height!),
         if (widget.color != null)

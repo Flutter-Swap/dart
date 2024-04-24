@@ -32,7 +32,8 @@ class _AppState extends State<App> {
   }
 
   Future<Runtime> load() async {
-    final response = await get(Uri.parse('${widget.config.baseUrl}/rfwtxt'));
+    final response =
+        await get(Uri.parse('${widget.config.baseUrl}/rfwtxt?name=Paris'));
     final remoteWidget = decodeLibraryBlob(response.bodyBytes);
 
     final result = Runtime();

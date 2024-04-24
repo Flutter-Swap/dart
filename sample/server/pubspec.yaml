@@ -9,7 +9,7 @@ dependencies:
   html_search: ^0.3.0
   shelf: ^1.4.1
   shelf_router: ^1.1.4
-  shelf_swap: ^0.0.2-dev.3
+  shelf_swap: ^0.0.2-dev.6
 
 dev_dependencies:
   lints: ^3.0.0

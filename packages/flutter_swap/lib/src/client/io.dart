@@ -24,6 +24,9 @@ class IOHttpSwapClient extends SwapClient {
       request.method,
       buildUri(request.path),
     );
+
+    urlRequest.headers.set('Content-Type', 'application/rfw');
+
     if (request.headers case final headers?) {
       for (var header in headers.entries) {
         urlRequest.headers.set(header.key, header.value);

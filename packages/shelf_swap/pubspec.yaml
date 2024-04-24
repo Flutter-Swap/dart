@@ -1,14 +1,14 @@
 name: shelf_swap
 description: Server side rendering for Flutter.
 homepage: https://github.com/Flutter-Swap/dart
-version: 0.0.2-dev.3
+version: 0.0.2-dev.6
 
 environment:
   sdk: ^3.3.0
 
 dependencies:
   shelf: ^1.4.1
-  swap: ^0.0.2-dev.3
+  swap: ^0.0.2-dev.6
 
 dev_dependencies:
   lints: ^2.1.0

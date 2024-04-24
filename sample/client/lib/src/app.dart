@@ -1,4 +1,3 @@
-import 'package:client/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swap/flutter_swap.dart';
 
@@ -44,10 +43,10 @@ class Home extends StatelessWidget {
         title: const Text('Swap samples'),
       ),
       body: ListView(
-        children: [
+        children: const [
           SampleTile(
             name: 'Pagination',
-            initialUrl: '${config.baseUrl}/pagination?page=1',
+            initialUrl: '/pagination?page=1',
           ),
         ],
       ),
@@ -108,7 +107,7 @@ class Sample extends StatelessWidget {
                   icon: const Icon(Icons.refresh),
                   onPressed: () {
                     context.swap.get(
-                      'slot',
+                      'page',
                       initialUrl,
                     );
                   },
@@ -118,7 +117,7 @@ class Sample extends StatelessWidget {
           ],
         ),
         body: Slot(
-          identifier: 'slot',
+          identifier: 'page',
           notSwappedBuilder: (context) => const Text('Slot 1'),
         ),
       ),

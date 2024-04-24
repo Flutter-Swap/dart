@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rfw: ^1.0.18
+  rfw: ^1.0.26
 
 dev_dependencies:
   flutter_test:

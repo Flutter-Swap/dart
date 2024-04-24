@@ -24,19 +24,29 @@ class _Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: mocha.base,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Center(
-              child: Text('👋'),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  '👋',
+                  style: TextStyle(
+                    fontSize: 100,
+                  ),
+                ),
+              ),
             ),
-          ),
-          Button(
-            path: '/basic/pagination?page=2',
-            title: 'Next',
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Button(
+                path: '/pagination?page=2',
+                title: 'Next',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -49,31 +59,59 @@ class _Page2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: mocha.base,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Center(
-              child: Text('🥖'),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 64,
+                        height: 64,
+                        child: Image.asset('logo.png'),
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        'Swap',
+                        style: TextStyle(
+                          fontSize: 62,
+                          color: mocha.text,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Button(
-                  path: '/basic/pagination?page=1',
-                  title: 'Previous',
-                ),
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Button(
+                      path: '/pagination?page=1',
+                      title: 'Previous',
+                    ),
+                  ),
+                  SizedBox(width: 12.0),
+                  Expanded(
+                    child: Button(
+                      path: '/pagination?page=3',
+                      title: 'Next',
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Button(
-                  path: '/basic/pagination?page=2',
-                  title: 'Next',
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -86,19 +124,29 @@ class _Page3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: mocha.base,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Center(
-              child: Text('🚀'),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  '🚀',
+                  style: TextStyle(
+                    fontSize: 100,
+                  ),
+                ),
+              ),
             ),
-          ),
-          Button(
-            path: '/basic/pagination?page=2',
-            title: 'Previous',
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Button(
+                path: '/pagination?page=2',
+                title: 'Previous',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -117,6 +165,7 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Swap(
+      target: 'page',
       path: path,
       child: Container(
         padding: EdgeInsets.all(8.0),

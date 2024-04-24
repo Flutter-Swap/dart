@@ -12,37 +12,20 @@ class RfwtxtController {
       '/',
       (request) {
         final name = request.url.queryParameters['name'] ?? 'World';
-        final text = '''
-    import core.widgets;
-    widget root = Container(
-      margin: [72],
-      padding: [72],
-      decoration: BoxDecoration(
-        color: 0xFFEEEEEE,
-        borderRadius: [24],
-        boxShadow: [
-          BoxShadow(
-            color: 0x44000000,
-            blurRadius: 56,
-            offset: { x: 0.0, y: 8.0 },
-          ),
-        ],
+        final text = '''import core.widgets;
+widget root = Column(
+  mainAxisAlignment: "center",
+  crossAxisAlignment: "center",
+  children: [
+    Text(
+      text: "Hello, $name!",
+      style: TextStyle(
+        fontSize: 100.0,
+        color: 0xFF0055AA,
       ),
-      child: Column(
-        mainAxisAlignment: "center",
-        crossAxisAlignment: "center",
-        children: [
-          Text(
-            text: "Hello, $name!",
-            style: TextStyle(
-              fontSize: 100,
-              letterSpacing: 2.0,
-              color: 0xFF000000,
-            ),
-          ),
-        ],
-      ),
-    );''';
+    ),
+  ],
+);''';
 
         final library = parseLibraryFile(text);
         final bytes = encodeLibraryBlob(library);
