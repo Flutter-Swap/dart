@@ -17,9 +17,9 @@ This package provides a collection of widgets that make it easy to swap widgets 
 
 ## See also
 
-* [swap]() 
-* [shelf_swap]() 
+* [swap](../swap/) 
+* [shelf_swap](../shelf_swap/) 
 
 ## Thanks 
 
-* [HTMX](https://htmx.org/) for its swapping concept based on requests 
+* [HTMX](https://htmx.org/) for its request-based swapping concepts 

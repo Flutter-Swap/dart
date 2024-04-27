@@ -1,6 +1,10 @@
 import 'package:shelf/shelf.dart';
 import 'package:swap/swap.dart';
 
+/// An [InheritedWidget] that provides the current [Request] to its descendants.
+///
+/// This allows widgets to access the current Shelf elements without having to
+/// pass them down manually.
 class InheritedShelf extends InheritedWidget {
   const InheritedShelf({
     required this.request,

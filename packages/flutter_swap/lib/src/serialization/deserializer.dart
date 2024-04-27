@@ -4,14 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:rfw/formats.dart';
 import 'package:rfw/rfw.dart';
 
-import 'client/response.dart';
-import 'widgets/configuration.dart';
-import 'widgets/notifications/init.dart';
-import 'widgets/notifications/link.dart';
-import 'widgets/notifications/notification.dart';
-import 'widgets/scope.dart';
-import 'widgets/slot.dart';
-import 'widgets/swap.dart';
+import '../client/response.dart';
+import '../widgets/configuration.dart';
+import '../widgets/notifications/init.dart';
+import '../widgets/notifications/link.dart';
+import '../widgets/notifications/notification.dart';
+import '../widgets/scope.dart';
+import '../widgets/slot.dart';
+import '../widgets/swap.dart';
 
 class SwapLibraryDeserializer {
   const SwapLibraryDeserializer({
@@ -53,16 +53,18 @@ class SwapLibraryDeserializer {
 
     runtime.update(mainName, library);
 
-    return Builder(builder: (context) {
-      return RemoteWidget(
-        runtime: runtime,
-        data: DynamicContent(),
-        widget: const FullyQualifiedWidgetName(mainName, 'root'),
-        onEvent: (String name, DynamicMap arguments) {
-          //SwapStore.event(context, name, arguments);
-        },
-      );
-    });
+    return Builder(
+      builder: (context) {
+        return RemoteWidget(
+          runtime: runtime,
+          data: DynamicContent(),
+          widget: const FullyQualifiedWidgetName(mainName, 'root'),
+          onEvent: (String name, DynamicMap arguments) {
+            //SwapStore.event(context, name, arguments);
+          },
+        );
+      },
+    );
   }
 }
 
@@ -72,6 +74,8 @@ LocalWidgetLibrary createSwapWidgets() =>
 // In these widgets we make an effort to expose every single argument available.
 Map<String, LocalWidgetBuilder> get _swapWidgetsDefinitions =>
     <String, LocalWidgetBuilder>{
+      /// Safe area is not part of the core widgets library, but it's a common
+      /// widget.
       'SafeArea': (BuildContext context, DataSource source) {
         return SafeArea(
           top: source.v<bool>(['top']) ?? true,

@@ -22,6 +22,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   late final _runtime = load();
+  final DynamicContent _data = DynamicContent();
 
   static const LibraryName coreName = LibraryName(<String>['core', 'widgets']);
   static const LibraryName mainName = LibraryName(<String>['main']);
@@ -57,7 +58,7 @@ class _AppState extends State<App> {
             }
             return RemoteWidget(
               runtime: snapshot.data!,
-              data: DynamicContent(),
+              data: _data,
               widget: const FullyQualifiedWidgetName(mainName, 'root'),
             );
           },

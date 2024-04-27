@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:swap/src/basic_types/basic_types.dart';
-import 'package:swap/src/rfw/model.dart';
+import 'package:rfw/formats.dart';
 import 'package:swap/src/widgets/widgets.dart';
 
 import 'arguments.dart';

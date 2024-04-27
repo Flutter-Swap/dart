@@ -12,17 +12,19 @@ class RfwtxtController {
       '/',
       (request) {
         final name = request.url.queryParameters['name'] ?? 'World';
-        final text = '''import core.widgets;
+        final text = '''
+import core.widgets;
 widget root = Column(
   mainAxisAlignment: "center",
   crossAxisAlignment: "center",
   children: [
     Text(
       text: "Hello, $name!",
-      style: TextStyle(
+      textAlign: "center",
+      style: {
         fontSize: 100.0,
         color: 0xFF0055AA,
-      ),
+      },
     ),
   ],
 );''';

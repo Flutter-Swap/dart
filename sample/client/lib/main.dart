@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swap/flutter_swap.dart';
 
-import 'src/app_rfwtxt.dart';
+import 'src/app.dart';
 import 'config.dart';
 import 'src/logger.dart';
 

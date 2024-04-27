@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:swap/src/rendering/arguments.dart';
 import 'package:swap/src/rendering/base.dart';
-import 'package:swap/src/rfw/rfw.dart';
+import 'package:rfw/formats.dart';
 import 'package:swap/src/widgets/swap.dart';
 
 class RenderSwap extends ParentRenderObject<Swap> {

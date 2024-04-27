@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:swap/src/rfw/rfw.dart';
+import 'package:rfw/formats.dart';
 import 'package:swap/src/widgets/widgets.dart';
 
 /// Encodes the given [root] widget into a [BlobNode].

@@ -4,7 +4,7 @@ Server-driven UI for Flutter.
 
 This package provides a way to express [rfw](https://pub.dev/packages/rfw) widgets just as if it was written in Dart for Flutter.
 
-It also adds many useful widgets to bring reactiveness to distant widgets.
+It also adds a few useful widgets to bring reactiveness to distant widgets.
 
 > Swap is still an experimental project. 
 >
@@ -73,10 +73,71 @@ class HelloWorld extends StatelessWidget {
 }
 ```
 
+## Custom widgets
+
+You can create a custom server widget that mirrors your Flutter instance by providing a `Widget` implementation and its corresponding `RenderElement`.
+
+```dart
+class Example extends Widget {
+  const Example({
+    super.key,
+    required this.path,
+    required this.child,
+  });
+
+  final String path;
+  final Widget child;
+
+  @override
+  RenderObject<Widget> createRenderObject() {
+    return RenderSwap(widget: this);
+  }
+}
+```
+
+The render object is responsible for building an RFW blob node from the current widget.
+
+```dart
+class RenderExample extends ParentRenderObject<Swap> {
+  RenderExample({
+    required super.widget,
+  })  : super(child: widget.child);
+
+  @override
+  FutureOr<BlobNode> encode() async {
+    return ConstructorCall(
+      'Example',
+      {
+        'path': widget.path,
+        if (child case final RenderObject v?) 'child': await v.encode(),
+      },
+    );
+  }
+}
+```
+
+On the Flutter side, you need to declare a custom deserializer.
+
+```dart
+'Example': (BuildContext context, DataSource source) {
+    return Swap(
+        path: source.v<String>(['path'])!,
+        child: source.child(['child']),
+    );
+},
+```
+
+You can take a look at the swap library implementation for more details.
+ 
+## General principles
+
+- All the provided widget API surface should always stay as close as possible as the Flutter one. This makes it easier for typical Flutter devs to develop Swap widget by reusing their knowledge, but also makes it easier to moves a server widget to a Flutter one if needed.
+- Swap widgets will always stay stateless. It would be possible to create long living stateful widgets by keeping an open connection, but we don't think it feets the overall philisophy of Swap. We want it to stay simple! This might be misleading because a few widgets are stateful in the Flutter world (*`FutureBuilder` for example*), but they are in fact built once in Swap before being sent to the client. This is just a design choice to keep the same API surface as Flutter. 
+
 ## See also
 
-* [flutter_shelf]() 
-* [flutter_swap]() 
+* [flutter_shelf](../shelf_swap/) 
+* [flutter_swap](../flutter_swap/) 
 
 ## Contributing
 
