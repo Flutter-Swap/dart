@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_swap/src/deserializer.dart';
+import 'package:flutter_swap/src/serialization/deserializer.dart';
 import 'package:flutter_swap/src/client/client.dart';
 
 /// The swap configuration data.

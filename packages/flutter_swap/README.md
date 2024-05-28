@@ -22,4 +22,4 @@ This package provides a collection of widgets that make it easy to swap widgets 
 
 ## Thanks 
 
-* [HTMX](https://htmx.org/) for its request-based swapping concepts 
+* [HTMX](https://htmx.org/) for its request-based swapping concepts. 

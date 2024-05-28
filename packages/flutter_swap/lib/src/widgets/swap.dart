@@ -20,6 +20,8 @@ class TapSwapTrigger extends SwapTrigger {
   const TapSwapTrigger();
 }
 
+/// A widget that swaps a [target] slot with the widget at the given [path] when
+/// the [trigger] is triggered.
 class Swap extends StatefulWidget {
   const Swap({
     super.key,
