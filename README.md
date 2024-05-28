@@ -1,4 +1,4 @@
-![doc/images/logo.png](doc/images/logo.png)
+![doc/images/logo.png](https://avatars.githubusercontent.com/u/165094044?s=200&v=4)
 
 Dart and Flutter libraries
 
